@@ -36,12 +36,21 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // If libs.androidx.compiler pulls in old Guava, exclude it
+    implementation(libs.androidx.compiler) {
+        exclude(group = "com.google.guava", module = "guava")
+        exclude(group = "com.google.guava", module = "listenablefuture")
+    }
+
+    // Use only the latest WorkManager runtime (you don't need both)
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
